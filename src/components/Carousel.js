@@ -84,7 +84,7 @@ class Carousel extends Component {
     componentWillReceiveProps (nextProps) {
         if (nextProps.selectedItem !== this.props.selectedItem && nextProps.selectedItem !== this.state.selectedItem) {
             this.updateSizes();
-            this.moveTo(nextProps.selectedItem);
+            this.moveTo(nextProps.selectedItem, true);
         }
 
         if (nextProps.autoPlay !== this.props.autoPlay) {
@@ -356,7 +356,8 @@ class Carousel extends Component {
         this.moveTo(this.state.selectedItem + (typeof positions === 'Number' ? positions : 1));
     }
 
-    moveTo = (position) => {
+    moveTo = (position, fromProps=false) => {
+
         const lastPosition = this.props.children.length  - 1;
 
         if (position < 0 ) {
@@ -370,7 +371,7 @@ class Carousel extends Component {
         this.selectItem({
             // if it's not a slider, we don't need to set position here
             selectedItem: position
-        });
+        }, fromProps);
 
         // don't reset auto play when stop on hover is enabled, doing so will trigger a call to auto play more than once
         // and will result in the interval function not being cleared correctly.
@@ -387,9 +388,10 @@ class Carousel extends Component {
         });
     }
 
-    selectItem = (state) => {
+    selectItem = (state, fromProps=false) => {
         this.setState(state);
-        this.handleOnChange(state.selectedItem, this.props.children[state.selectedItem]);
+        if(!fromProps)
+          this.handleOnChange(state.selectedItem, this.props.children[state.selectedItem]);
     }
 
     getInitialImage = () => {
