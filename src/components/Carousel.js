@@ -36,7 +36,8 @@ class Carousel extends Component {
         swipeScrollTolerance: PropTypes.number,
         dynamicHeight: PropTypes.bool,
         emulateTouch: PropTypes.bool,
-        statusFormatter: PropTypes.func.isRequired
+        statusFormatter: PropTypes.func.isRequired,
+        disabled: PropTypes.bool
     };
 
     static defaultProps = {
@@ -59,7 +60,8 @@ class Carousel extends Component {
         onClickItem: noop,
         onClickThumb: noop,
         onChange: noop,
-        statusFormatter: defaultStatusFormatter
+        statusFormatter: defaultStatusFormatter,
+        disabled: false
     };
 
     constructor(props) {
@@ -256,12 +258,14 @@ class Carousel extends Component {
             return;
         }
 
-        this.props.onClickItem(index, item);
+        if (!this.props.disabled) {
+          this.props.onClickItem(index, item);
 
-        if (index !== this.state.selectedItem) {
-            this.setState({
-                selectedItem: index,
-            });
+          if (index !== this.state.selectedItem) {
+              this.setState({
+                  selectedItem: index,
+              });
+          }
         }
     }
 
@@ -270,11 +274,13 @@ class Carousel extends Component {
     }
 
     handleClickThumb = (index, item) => {
-        this.props.onClickThumb(index, item);
+        if(!this.props.disabled) {
+          this.props.onClickThumb(index, item);
 
-        this.selectItem({
-            selectedItem: index
-        });
+          this.selectItem({
+              selectedItem: index
+          });
+        }
     }
 
     onSwipeStart = () => {
@@ -357,6 +363,8 @@ class Carousel extends Component {
     }
 
     moveTo = (position, fromProps=false) => {
+        if(this.props.disabled)
+          return;
 
         const lastPosition = this.props.children.length  - 1;
 
@@ -381,11 +389,13 @@ class Carousel extends Component {
     }
 
     changeItem = (e) => {
-        const newIndex = e.target.value;
+        if (!this.props.disabled) {
+            const newIndex = e.target.value;
 
-        this.selectItem({
-            selectedItem: newIndex
-        });
+            this.selectItem({
+                selectedItem: newIndex
+            });
+        }
     }
 
     selectItem = (state, fromProps=false) => {

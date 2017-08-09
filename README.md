@@ -3,14 +3,14 @@
 [![npm version](https://badge.fury.io/js/react-responsive-carousel.svg)](https://badge.fury.io/js/react-responsive-carousel)
 [![Build Status](https://travis-ci.org/leandrowd/react-responsive-carousel.svg?branch=master)](https://travis-ci.org/leandrowd/react-responsive-carousel)
 
-Powerful, lightweight and fully customizable carousel component for React apps. 
+Powerful, lightweight and fully customizable carousel component for React apps.
 
 ### Features
 
 - Responsive
 - Mobile friendly
 - Swipe to slide
-- Mouse emulating touch 
+- Mouse emulating touch
 - Server side rendering
 - Keyboard navigation
 - Custom animation duration
@@ -21,6 +21,7 @@ Powerful, lightweight and fully customizable carousel component for React apps.
 - Supports images, videos, text content or anything you want. Each direct child represents one slide!
 - Supports any flux library (use `selectedItem` prop to set from the app state, and `onChange` callback to get the new position)
 - Show/hide anything (thumbs, indicators, arrows, status)
+- Enable/disable the carousel (use `disabled` prop to set from the app state)
 
 ### Demo
 <http://leandrowd.github.io/react-responsive-carousel/>
@@ -79,9 +80,10 @@ ReactDOM.render(<DemoCarousel />, document.querySelector('.demo-carousel'));
 | useKeyboardArrows     | `boolean`     | `false` | Adds support to next and prev through keyboard arrows |
 | autoPlay              | `boolean`     | `false` | Auto play |
 | stopOnHover           | `boolean`     | `true` | Stop auto play while mouse is over the carousel |
+| disabled              | `boolean`     | `false` | Disables the carousel and all transitions |
 | interval              | `number`      | `5000` | Interval of auto play |
 | transitionTime        | `number`      | `350` | Duration of slide transitions (in miliseconds) |
-| swipeScrollTolerance  | `number`      | `5` | Allows scroll when the swipe movement occurs in a different direction than the carousel axis and within the tolerance - Increase for loose - Decrease for strict | 
+| swipeScrollTolerance  | `number`      | `5` | Allows scroll when the swipe movement occurs in a different direction than the carousel axis and within the tolerance - Increase for loose - Decrease for strict |
 | dynamicHeight         | `boolean`     | `false` | Adjusts the carousel height if required. -- Do not work with vertical axis -- |
 | emulateTouch          | `boolean`     | `false` | Allows mouse to simulate swipe |
 | statusFormatter       | `func`        | (current, total) => `${current} of ${total}` | Allows custom formatting of the status indicator |  
