@@ -22,6 +22,7 @@ class Carousel extends Component {
         showIndicators: PropTypes.bool,
         infiniteLoop: PropTypes.bool,
         showThumbs: PropTypes.bool,
+        allowPeek: PropTypes.bool,
         selectedItem: PropTypes.number,
         onClickItem: PropTypes.func.isRequired,
         onClickThumb: PropTypes.func.isRequired,
@@ -45,6 +46,7 @@ class Carousel extends Component {
         showArrows: true,
         showStatus:true,
         showThumbs:true,
+        allowPeek: true,
         infiniteLoop: false,
         selectedItem: 0,
         axis: 'horizontal',
@@ -321,7 +323,9 @@ class Carousel extends Component {
 
         const position = currentPosition + (100 / (this.state.itemSize / handledDelta)) + '%';
 
-        this.setPosition(position);
+        if (this.props.allowPeek) {
+            this.setPosition(position);
+        }
 
         // allows scroll if the swipe was within the tolerance
         const hasMoved = Math.abs(axisDelta) > this.props.swipeScrollTolerance;
